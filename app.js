@@ -27,6 +27,31 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+app.use(function(){
+    io.start(server);
+})
+
+/*
+app.use(function(socket){
+    socket.write('SEND OK');
+//
+    socket.pipe(socket);
+
+    socket.on('data',function(data){
+        //if(typeof data != 'string'){
+        var jsontest = JSON.parse(data);
+        console.log('Received: ' + data);
+        console.log(jsontest.weight);
+        console.log(jsontest.light);
+        console.log(jsontest.humid);
+        //}
+    });
+    socket.on('listening',function(){
+        console.log('listening');
+    });
+});
+*/
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
