@@ -27,10 +27,6 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-app.use(function(){
-    io.start(server);
-})
-
 /*
 app.use(function(socket){
     socket.write('SEND OK');
