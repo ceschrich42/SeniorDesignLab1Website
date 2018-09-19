@@ -1,7 +1,23 @@
 extends layout
 
 block content
-h1= title
-p Welcome to #{title}
-script(src="/socket.io/socket.io.js")
-script.var socket = io.connect('http://localhost:3000');
+  h1= title
+  script(src='https://www.gstatic.com/firebasejs/5.5.0/firebase.js')
+    script.
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBNmQQ9osfVp2JR7JdkbXfOoqZs9iT0kMM",
+            authDomain: "seniordesignlab1-e09d1.firebaseapp.com",
+            databaseURL: "https://seniordesignlab1-e09d1.firebaseio.com",
+            projectId: "seniordesignlab1-e09d1",
+            storageBucket: "",
+            messagingSenderId: "373917785489"
+        };
+        firebase.initializeApp(config);
+  script(src="/socket.io/socket.io.js")
+  script.var socket = io.connect('http://localhost:3000')
+
+
+
+block graph
+  iframe(frameborder='0', seamless='seamless', height=500, width=600, scrolling='yes', src='https://plot.ly/~ConnorEschrich/0.embed?height=500')
