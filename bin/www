@@ -14,7 +14,8 @@ const accountSid = 'AC073117779aecf1cad4a9fdb09c2d34f4';
 const authToken = 'af31a15c3056e93b4598558211b0d574';
 var twilio = require('twilio');
 const client = new twilio(accountSid, authToken);
-var serviceAccount = require("/Users/connoreschrich/Documents/Senior Design/SampleNodeJS/serviceAccountKey.json");
+var serviceAccount = require("C:\\Users\\jjb09\\git\\jjbiggins\\SeniorDesign\\Lab1\\Website\\SampleNodeJS\\serviceAccountKey.json");
+
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -22,6 +23,7 @@ admin.initializeApp({
 });
 
 var database = admin.database();
+
 
 /**
  * Get port from environment and store in Express.
@@ -49,7 +51,7 @@ io.on('connection', function(socket) {
     console.log('a user connected');
 
     socket.on('disconnect', function() {
-      console.log('user disconnected');
+        console.log('user disconnected');
     });
 });
 
@@ -83,23 +85,45 @@ plotly.plot(initData, initGraphOptions, function (err, msg) {
         console.log(err, res);
         //clearInterval(loop); // once stream is closed, stop writing
     });
-/*
-    var i = 0;
-    var loop = setInterval(function () {
-        var streamObject = JSON.stringify({ x : 1000-i, y : i });
-        stream1.write(streamObject+'\n');
-        i++;
-    }, 1000);
-    */
+    /*
+        var i = 0;
+        var loop = setInterval(function () {
+            var streamObject = JSON.stringify({ x : 1000-i, y : i });
+            stream1.write(streamObject+'\n');
+            i++;
+        }, 1000);
+        */
+    var i = 300;
     database.ref('temperatures').on("value", function(snapshot) {
         snapshot.forEach(function(data) {
             console.log("The " + data.key + " temperature is " + data.val());
-            var streamObject = JSON.stringify({ x : data.key, y : data.val()});
+            var streamObject = JSON.stringify({ x : i, y : data.val()});
             stream1.write(streamObject+'\n');
+            i--;
         });
     });
 
+
 });
+
+var five = require('johnny-five');
+var board = new five.Board();
+
+board.on('ready', function() {
+
+    var thermometer = new five.Thermometer ({
+        controller: "DS18B20",
+        pin: 3,
+        freq: 50
+    });
+
+    thermometer.on("data", function() {
+        console.log(this.celsius + " C");
+        database.ref("temperatures").push(this.celsius);
+    });
+});
+
+
 
 
 
