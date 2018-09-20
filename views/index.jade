@@ -15,9 +15,46 @@ block content
         };
         firebase.initializeApp(config);
   script(src="/socket.io/socket.io.js")
-  script.var socket = io.connect('http://localhost:3000')
+  script.
+      var socket = io.connect("http://localhost:3000")
+      socket.on('connection', function (data) {
+          alert(data);
+      });
+      socket.on('updatedTemp', function (temp) {
+          alert(temp);
+          document.getElementById("currentTemp").innerHTML = temp + " C";
+      });
 
 
 
 block graph
   iframe(frameborder='0', seamless='seamless', height=500, width=600, scrolling='yes', src='https://plot.ly/~ConnorEschrich/0.embed?height=500')
+
+
+block userInteraction
+    p
+        div#tempInput
+            br
+            table
+                td
+                    tr
+                        p#currentTemp= "Not connected"
+                td
+                    tr
+                        td
+                            p= "Enter minimum temperature: "
+                        td
+                            input#minTemp(type="number", style="width: 100px", disabled="true")
+                    tr
+                        td
+                            p= "Enter maximum temperature: "
+                        td
+                            input#maxTemp(type="number", style="width: 100px", disabled="true")
+                    tr
+                        td
+                            p= "Enter a phone number: "
+                        td
+                            input#phoneNumber(type="text", style="width: 150px", disabled="true")
+
+
+
