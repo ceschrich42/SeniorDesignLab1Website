@@ -103,7 +103,6 @@ plotly.plot(initData, initGraphOptions, function (err, msg) {
         });
     });
 
-
 });
 
 var five = require('johnny-five');
