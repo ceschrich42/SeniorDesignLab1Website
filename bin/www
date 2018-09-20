@@ -14,7 +14,7 @@ const accountSid = 'AC073117779aecf1cad4a9fdb09c2d34f4';
 const authToken = 'af31a15c3056e93b4598558211b0d574';
 var twilio = require('twilio');
 const client = new twilio(accountSid, authToken);
-var serviceAccount = require("/Users/connoreschrich/Documents/Senior Design/SampleNodeJS/serviceAccountKey.json");
+var serviceAccount = require("C:\\Users\\David\\IdeaProjects\\SeniorDesignLab1Website\\serviceAccountKey.json");
 
 
 admin.initializeApp({
@@ -35,7 +35,7 @@ client.messages
     .create({
         body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
         from: '+16306264552',
-        to: '+18475295964'
+        to: '+17082141668'
     })
     .then(message => console.log(message.sid)).done();
 
